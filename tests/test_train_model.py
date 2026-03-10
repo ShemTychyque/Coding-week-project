@@ -148,6 +148,13 @@ class TestSavedModel:
         assert m["recall"] >= 0.85, f"Recall trop bas : {m['recall']}"
         assert m["roc_auc"] >= 0.85, f"ROC-AUC trop bas : {m['roc_auc']}"
 
+    def test_precision_above_threshold(self):
+        with open(os.path.join(MODELS_DIR, "metrics.json")) as f:
+            data = json.load(f)
+        best = data["best_model"]
+        m = data["models"][best]
+        assert m["precision"] >= 0.80, f"Precision trop basse : {m['precision']}"
+
     def test_batch_prediction(self, loaded_model):
         model, scaler, feature_names = loaded_model
         batch = np.random.randn(10, len(feature_names))
