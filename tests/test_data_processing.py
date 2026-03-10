@@ -199,6 +199,11 @@ class TestCleanData:
     def test_bmi_preserved(self, clean_df):
         assert "BMI" in clean_df.columns
 
+    def test_wbc_crp_ratio_positive(self, clean_df):
+        assert (clean_df["WBC_CRP_Ratio"] >= 0).all(), (
+            "WBC_CRP_Ratio contient des valeurs négatives"
+        )
+
 
                                                              
                              
