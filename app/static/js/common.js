@@ -10,6 +10,12 @@ const NAVBAR_SCROLL_THRESHOLD = 20;
 /** Seuil de visibilité (0–1) pour l'IntersectionObserver des animations d'entrée. */
 const INTERSECTION_THRESHOLD = 0.08;
 
+/** Délai (ms) avant la disparition automatique d'un message flash. */
+const FLASH_DISMISS_DELAY = 3000;
+
+/** Durée (ms) de l'animation de fondu de disparition d'un message flash. */
+const FLASH_FADE_DURATION = 400;
+
 document.addEventListener('DOMContentLoaded', () => {
     const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -41,13 +47,17 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.animate-in').forEach(el => io.observe(el));
     }
 
-    /* ── Auto-dismiss des messages flash après 3 secondes ── */
+    /* ── Auto-dismiss des messages flash après FLASH_DISMISS_DELAY millisecondes ── */
     document.querySelectorAll('.flash-msg').forEach(m => {
         if (prefersReducedMotion) {
-            setTimeout(() => m.remove(), 3000);
+            setTimeout(() => m.remove(), FLASH_DISMISS_DELAY);
         } else {
-            m.style.transition = 'opacity 0.4s, transform 0.4s';
-            setTimeout(() => { m.style.opacity = '0'; m.style.transform = 'translateY(-10px)'; setTimeout(() => m.remove(), 400); }, 3000);
+            m.style.transition = `opacity ${FLASH_FADE_DURATION}ms, transform ${FLASH_FADE_DURATION}ms`;
+            setTimeout(() => {
+                m.style.opacity = '0';
+                m.style.transform = 'translateY(-10px)';
+                setTimeout(() => m.remove(), FLASH_FADE_DURATION);
+            }, FLASH_DISMISS_DELAY);
         }
     });
 
