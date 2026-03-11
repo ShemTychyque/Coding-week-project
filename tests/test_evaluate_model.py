@@ -61,6 +61,14 @@ class TestEvaluateModel:
         _, _, y_prob = evaluate_model(model, X_test, y_test)
         assert all(0 <= p <= 1 for p in y_prob)
 
+    def test_roc_auc_above_baseline(self, preprocessed, loaded_model):
+        _, X_test, _, y_test, _, _ = preprocessed
+        model, _, _ = loaded_model
+        metrics, _, _ = evaluate_model(model, X_test, y_test)
+        assert metrics["roc_auc"] > 0.5, (
+            f"ROC-AUC ({metrics['roc_auc']:.3f}) pas meilleur qu'un classifieur aléatoire"
+        )
+
 
 class TestPlots:
 
