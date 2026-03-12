@@ -1,8 +1,3 @@
-"""
-Model Evaluation Module for Pediatric Appendicitis Diagnosis
-==============================================================
-Evaluates the trained model and generates SHAP explainability plots.
-"""
 
 import os
 import sys
