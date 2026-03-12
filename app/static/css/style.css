@@ -506,7 +506,7 @@ input, select, textarea { font-family: inherit; }
 .stat-label { font-size: 0.8rem; color: var(--slate-600); font-weight: 600; margin-top: 0.15rem; }
 .stat-sub { font-size: 0.7rem; color: var(--slate-400); font-weight: 400; margin-top: 0; }
 
-/* ── How It Works ───────────────────────────────────────────────── */
+/* ── How It Works - Functionality ───────────────────────────────────────────────── */
 .how-section {
   padding: 6rem 0;
   background: #fff;
