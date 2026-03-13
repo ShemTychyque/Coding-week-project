@@ -55,6 +55,14 @@ class TestPipelineIntegrity:
             f"Nombre de features attendu : 21, obtenu : {len(feature_names)}"
         )
 
+    def test_train_data_scaled(self, preprocessed):
+        """Les données d'entraînement doivent être approximativement centrées-réduites."""
+        X_train, _, _, _, _, _ = preprocessed
+        col_means = np.abs(X_train.mean(axis=0))
+        col_stds = X_train.std(axis=0)
+        assert col_means.max() < 0.5, f"Moyenne max trop élevée : {col_means.max():.3f}"
+        assert col_stds.min() > 0.5, f"Écart-type min trop faible : {col_stds.min():.3f}"
+
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
