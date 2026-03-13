@@ -103,6 +103,16 @@ class TestPlots:
             assert os.path.exists(os.path.join(tmpdir, "shap_beeswarm.png"))
             assert shap_values is not None
 
+    def test_shap_plots_file_sizes(self, preprocessed, loaded_model):
+        _, X_test, _, y_test, _, _ = preprocessed
+        model, _, feature_names = loaded_model
+        with tempfile.TemporaryDirectory() as tmpdir:
+            generate_shap_plots(model, X_test, feature_names, save_dir=tmpdir)
+            bar_size = os.path.getsize(os.path.join(tmpdir, "shap_summary_bar.png"))
+            bee_size = os.path.getsize(os.path.join(tmpdir, "shap_beeswarm.png"))
+            assert bar_size > 5_000, f"shap_summary_bar.png trop petit : {bar_size} octets"
+            assert bee_size > 5_000, f"shap_beeswarm.png trop petit : {bee_size} octets"
+
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
