@@ -5,6 +5,7 @@
    (clavier, molette, flèches, points latéraux) et particules.
    ═══════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     /* ── Animation de comptage des statistiques ── */
     const statObserver = new IntersectionObserver(entries => {
@@ -12,15 +13,19 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!entry.isIntersecting) return;
             entry.target.querySelectorAll('.stat-value[data-count]').forEach(el => {
                 const target = parseFloat(el.dataset.count);
-                const duration = 1500;
-                const start = performance.now();
-                function tick(now) {
-                    const progress = Math.min((now - start) / duration, 1);
-                    const eased = 1 - Math.pow(1 - progress, 3);
-                    el.textContent = (target * eased).toFixed(1);
-                    if (progress < 1) requestAnimationFrame(tick);
+                if (prefersReducedMotion) {
+                    el.textContent = target.toFixed(1);
+                } else {
+                    const duration = 1500;
+                    const start = performance.now();
+                    function tick(now) {
+                        const progress = Math.min((now - start) / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        el.textContent = (target * eased).toFixed(1);
+                        if (progress < 1) requestAnimationFrame(tick);
+                    }
+                    requestAnimationFrame(tick);
                 }
-                requestAnimationFrame(tick);
             });
             statObserver.unobserve(entry.target);
         });
@@ -36,6 +41,23 @@ document.addEventListener('DOMContentLoaded', () => {
     function goToSlide(index) {
         if (slideAnimating || index === currentSlide || index < 0 || index >= landingSections.length) return;
         slideAnimating = true;
+        if (prefersReducedMotion) {
+            const prev = landingSections[currentSlide];
+            const next = landingSections[index];
+            prev.classList.remove('active', 'slide-exit-up', 'slide-exit-down');
+            next.classList.add('active');
+            sideSteps.forEach((s, i) => s.classList.toggle('active', i === index));
+            next.querySelectorAll('.animate-in').forEach(el => el.classList.add('visible'));
+            if (next.querySelector('.stats-grid')) {
+                next.querySelectorAll('.stat-value[data-count]').forEach(el => {
+                    const target = parseFloat(el.dataset.count);
+                    el.textContent = (target || 0).toFixed(1);
+                });
+            }
+            currentSlide = index;
+            slideAnimating = false;
+            return;
+        }
         const goingDown = index > currentSlide;
         const prev = landingSections[currentSlide];
         const next = landingSections[index];
@@ -132,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ── Particules décoratives (si l'élément #particles existe) ── */
     const pc = document.getElementById('particles');
-    if (pc) {
+    if (pc && !prefersReducedMotion) {
         for (let i = 0; i < 20; i++) {
             const d = document.createElement('span');
             d.className = 'particle';

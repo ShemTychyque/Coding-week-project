@@ -6,6 +6,7 @@
    et toggle échographie.
    ═══════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     /* ═══ FORMULAIRE MULTI-ÉTAPES ═══ */
     const steps = document.querySelectorAll('.form-step');
@@ -76,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 currentStep++;
                 showStep(currentStep);
-                window.scrollTo({ top: document.querySelector('.form-section').offsetTop - 100, behavior: 'smooth' });
+                window.scrollTo({ top: document.querySelector('.form-section').offsetTop - 100, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
             }
         });
     }
