@@ -1,18 +1,18 @@
-<!--
+{#
     diagnosis.html — Formulaire de diagnostic clinique (multi-étapes)
-    ==================================================================
-    Formulaire principal de l'application permettant de saisir les données d'un patient
-    pour une évaluation diagnostique de l'appendicite par IA.
+    ===============================================================
+    Formulaire principal permettant de saisir les données d'un patient
+    pour une évaluation diagnostique par IA.
     Hérite de base.html.
 
-    Le formulaire est organisé en 3 étapes (wizard) :
-    - Étape 0 : Démographie — informations de base du patient (nom, âge, sexe, taille, poids, IMC)
-    - Étape 1 : Symptômes — symptômes cliniques associés (nausées, douleurs, péritonite, etc.)
-    - Étape 2 : Examen & Labo — examen physique, résultats biologiques et échographiques
+    Étapes :
+    - 0 : Démographie (âge, sexe, taille, poids, IMC)
+    - 1 : Symptômes
+    - 2 : Examen & Labo (clinique, biologique, échographie)
 
-    Les étapes sont affichées/masquées dynamiquement via JavaScript (main.js).
-    Le formulaire envoie les données en POST à la route 'predict' pour l'analyse par le modèle ML.
--->
+    Navigation/validation gérée par app/static/js/diagnosis.js.
+    Soumission en POST vers la route predict.
+#}
 {% extends "base.html" %}
 {% block title %}PediAppend &mdash; Diagnostic clinique{% endblock %}
 

@@ -1,17 +1,13 @@
-<!--
+{#
     profile.html — Page de profil utilisateur
-    ============================================
-    Permet à l'utilisateur connecté de consulter et modifier ses informations de profil.
+    =======================================
+    Permet à l'utilisateur connecté de consulter et modifier ses informations.
     Hérite de base.html.
 
-    Variables Jinja2 attendues :
-    - current_user : objet utilisateur Flask-Login (username, is_admin)
-    - diag_count   : nombre de diagnostics réalisés par l'utilisateur
-
-    Structure :
-    1. En-tête du profil — avatar SVG, nom d'utilisateur, compteur de diagnostics, badge admin
-    2. Formulaire de modification — changer le nom d'utilisateur et/ou le mot de passe
--->
+    Variables attendues :
+    - current_user : utilisateur Flask-Login (username, is_admin)
+    - diag_count   : nombre de diagnostics réalisés
+#}
 {% extends "base.html" %}
 {% block title %}Mon Profil — PediAppend{% endblock %}
 {% block content %}

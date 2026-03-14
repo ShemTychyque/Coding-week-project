@@ -1,19 +1,12 @@
-<!--
+{#
     history.html — Page d'historique des diagnostics
-    ===================================================
-    Affiche la liste des diagnostics passés de l'utilisateur connecté sous forme de tableau.
+    ==============================================
+    Affiche la liste des diagnostics passés sous forme de tableau.
     Hérite de base.html.
 
-    Variables Jinja2 attendues :
-    - records : liste des enregistrements de diagnostics (objets avec id, patient_first_name,
-                patient_last_name, timestamp, age, sex, prediction, confidence)
-
-    Structure :
-    1. En-tête — titre, compteur de diagnostics, bouton "Tout effacer"
-    2. Barre de filtres — recherche textuelle et filtre par résultat (positif/négatif)
-    3. État vide — affiché si aucun diagnostic n'a été enregistré
-    4. Tableau de données — liste des diagnostics avec actions (supprimer)
--->
+    Variables attendues :
+    - records : liste (id, patient_first_name, patient_last_name, timestamp, age, sex, prediction, confidence)
+#}
 {% extends "base.html" %}
 {% block title %}Historique &mdash; PediAppend{% endblock %}
 

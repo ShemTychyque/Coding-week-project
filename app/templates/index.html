@@ -1,16 +1,13 @@
-<!--
-    index.html — Page d'accueil (Landing Page)
-    ============================================
-    Page d'accueil de PediAppend avec une expérience de défilement en 3 étapes (slides plein écran).
+{#
+    index.html — Page d'accueil (landing)
+    ===================================
+    Landing page avec expérience "slides" plein écran (3 sections).
     Hérite de base.html et masque le footer par défaut.
 
-    Structure en 3 slides :
-    - Slide 1 (Hero)         : Présentation principale, slogan, boutons d'action, badges de confiance
-    - Slide 2 (Performances) : Métriques du modèle (précision, F1, ROC AUC) + fonctionnement en 3 étapes
-    - Slide 3 (Fonctionnalités) : Grille de 6 cartes présentant les capacités de l'application
-
-    Navigation latérale (side-steps) : permet de naviguer entre les 3 slides via des points cliquables.
--->
+    Navigation :
+    - Points latéraux (side-steps), flèches, clavier et molette
+    - Logique gérée par app/static/js/landing.js
+#}
 {% extends "base.html" %}
 {% block title %}PediAppend &mdash; Diagnostic pédiatrique de l'appendicite{% endblock %}
 

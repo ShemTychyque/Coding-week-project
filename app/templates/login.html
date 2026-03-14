@@ -1,18 +1,13 @@
-<!--
+{#
     login.html — Page de connexion
-    ================================
-    Formulaire d'authentification permettant aux utilisateurs existants de se connecter.
+    =============================
+    Formulaire d'authentification pour les utilisateurs existants.
     Hérite de base.html.
 
     Structure :
-    - Fond décoratif avec orbes animés
-    - Carte d'authentification contenant :
-      - En-tête avec icône et titre "Connexion"
-      - Formulaire POST vers auth.login avec champs : nom d'utilisateur, mot de passe
-      - Option "Se souvenir de moi" (checkbox)
-      - Bouton de soumission
-      - Lien vers la page d'inscription pour les nouveaux utilisateurs
--->
+    - Fond décoratif (orbes)
+    - Carte d'authentification (titre, formulaire, lien d'inscription)
+#}
 {% extends "base.html" %}
 {% block title %}Connexion &mdash; PediAppend{% endblock %}
 

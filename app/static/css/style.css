@@ -1,14 +1,14 @@
 /* ================================================================
-   PediAppend — Premium Medical SaaS Design
-   Inspired by the Next.js reference (light, glassmorphism, cyan→emerald)
+   PediAppend — UI (style.css)
+   Styles globaux partagés (landing, formulaire, résultats, admin).
    ================================================================ */
 
-/* ── Google Fonts ───────────────────────────────────────────────── */
+/* ── Polices ────────────────────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 /* ── CSS Variables ──────────────────────────────────────────────── */
 :root {
-  /* Colors — Tailwind equivalents */
+  /* Couleurs (palette utilitaire) */
   --cyan-50:  #ecfeff;  --cyan-100: #cffafe;  --cyan-200: #a5f3fc;
   --cyan-400: #22d3ee;  --cyan-500: #06b6d4;  --cyan-600: #0891b2;
   --teal-50:  #f0fdfa;  --teal-100: #ccfbf1;  --teal-500: #14b8a6;

@@ -1,20 +1,13 @@
-<!--
+{#
     register.html — Page d'inscription
-    =====================================
+    ================================
     Formulaire de création de compte pour les nouveaux utilisateurs.
     Hérite de base.html.
 
     Structure :
-    - Fond décoratif avec orbes animés
-    - Carte d'authentification contenant :
-      - En-tête avec titre "Créer un compte"
-      - Formulaire POST vers auth.register avec champs :
-        - Nom d'utilisateur (min 3 caractères)
-        - Mot de passe (min 6 caractères)
-        - Confirmation du mot de passe
-      - Bouton de soumission
-      - Lien vers la page de connexion pour les utilisateurs existants
--->
+    - Fond décoratif (orbes)
+    - Carte d'authentification (titre, formulaire, lien de connexion)
+#}
 {% extends "base.html" %}
 {% block title %}Inscription &mdash; PediAppend{% endblock %}
 

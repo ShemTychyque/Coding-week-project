@@ -1,24 +1,16 @@
-<!--
+{#
     result.html — Page de résultat du diagnostic
-    ===============================================
-    Affiche le résultat de l'analyse par le modèle Random Forest après soumission du formulaire.
+    ==========================================
+    Affiche la sortie du modèle après soumission du formulaire.
     Hérite de base.html.
 
-    Variables Jinja2 attendues (passées par la route Flask) :
-    - probability   : probabilité d'appendicite (float entre 0 et 1)
-    - prediction    : prédiction binaire (1 = appendicite probable, 0 = peu probable)
-    - confidence    : confiance du modèle (float entre 0 et 1)
-    - patient_name  : nom du patient (chaîne de caractères, optionnel)
-    - shap_values   : liste de dictionnaires {feature, value, shap} triée par importance
-
-    Structure de la page :
-    1. Carte de résultat principal — anneau SVG avec score + badges de risque + recommandation
-    2. Cartes d'information — 4 cartes résumant les métriques clés
-    3. Carte anatomique — illustration et description de la zone concernée
-    4. Analyse SHAP — diagramme en cascade + grille des contributions positives/négatives
-    5. Boutons d'action — nouveau diagnostic et historique
-    6. Avertissement clinique — rappel que l'outil est une aide à la décision
--->
+    Variables attendues :
+    - probability  : probabilité (0..1)
+    - prediction   : 1 (positif) / 0 (négatif)
+    - confidence   : confiance (0..1)
+    - patient_name : optionnel
+    - shap_values  : liste {feature, value, shap} triée par importance
+#}
 {% extends "base.html" %}
 {% block title %}Résultat du Diagnostic &mdash; PediAppend{% endblock %}
 

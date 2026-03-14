@@ -1,16 +1,17 @@
 {#
     base.html — Template de base (layout principal)
-    ================================================
-    Ce fichier sert de squelette commun a toutes les pages de l'application PediAppend.
-    Toutes les autres pages heritent de ce template via: extends "base.html".
+    ==============================================
+    Layout partagé par toutes les pages.
+    Les templates héritent de ce layout via extends "base.html".
 
-    Structure :
-    1. <head>        : Metadonnees, titre (surchargeable via block title), feuille de style CSS
-    2. <header>      : Barre de navigation (navbar) avec logo, liens et menu utilisateur
-    3. Flash messages: Affichage des messages temporaires Flask (succes, erreur, info)
-    4. <main>        : Contenu principal (surchargeable via block content)
-    5. <footer>      : Pied de page avec logo, copyright et liens rapides (surchargeable via block footer)
-    6. <script>      : Chargement du fichier JavaScript principal (main.js)
+    Blocs :
+    - title   : titre de la page
+    - content : contenu principal
+    - footer  : pied de page (surchargeable/masquable)
+    - scripts : scripts spécifiques à une page
+
+    Script global :
+    - common.js : navbar, animations d'entrée, flash messages
 #}
 <!DOCTYPE html>
 <html lang="fr">

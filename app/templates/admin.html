@@ -1,24 +1,18 @@
-<!--
+{#
     admin.html — Panneau d'administration
-    ========================================
-    Tableau de bord réservé aux administrateurs pour gérer les utilisateurs de l'application.
-    Hérite de base.html. Accessible uniquement aux utilisateurs ayant le rôle admin.
+    ===================================
+    Tableau de bord réservé aux administrateurs pour gérer les utilisateurs.
+    Hérite de base.html.
 
-    Variables Jinja2 attendues :
-    - users      : liste des utilisateurs (objets avec id, username, is_admin, diag_count)
-    - total_diag : nombre total de diagnostics sur la plateforme
-    - current_user : utilisateur admin actuellement connecté
+    Variables attendues :
+    - users        : liste d'utilisateurs (id, username, is_admin, diag_count)
+    - total_diag   : total de diagnostics
+    - current_user : utilisateur connecté (admin)
 
-    Structure :
-    1. En-tête — titre et statistiques globales (nombre d'utilisateurs et diagnostics)
-    2. Tableau des utilisateurs — ID, nom, rôle, diagnostics, actions
-    3. Script JavaScript — fonctions pour basculer le rôle admin et supprimer un utilisateur
-
-    Actions disponibles :
-    - Basculer le rôle admin (promouvoir/rétrograder un utilisateur)
-    - Supprimer un utilisateur et tout son historique de diagnostics
-    Note : L'admin ne peut pas modifier son propre rôle ni se supprimer
--->
+    Actions :
+    - Basculer le rôle admin
+    - Supprimer un utilisateur et son historique
+#}
 {% extends "base.html" %}
 {% block title %}Administration — PediAppend{% endblock %}
 {% block content %}
