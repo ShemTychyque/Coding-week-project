@@ -5,6 +5,7 @@
    et animation des barres SHAP.
    ═══════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     /* ═══ ANIMATION DE L'ANNEAU SVG ═══ */
     /* Anime le cercle de progression et le pourcentage affiché au centre */
@@ -16,22 +17,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const pct = parseFloat(ringProgress.dataset.pct) || 0;
         ringProgress.style.strokeDasharray = c;
         ringProgress.style.strokeDashoffset = c;
-        requestAnimationFrame(() => {
-            setTimeout(() => {
-                ringProgress.style.transition = 'stroke-dashoffset 1.5s ease-out';
-                ringProgress.style.strokeDashoffset = c - (pct / 100) * c;
-            }, 300);
-        });
+        if (prefersReducedMotion) {
+            ringProgress.style.transition = 'none';
+            ringProgress.style.strokeDashoffset = c - (pct / 100) * c;
+        } else {
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    ringProgress.style.transition = 'stroke-dashoffset 1.5s ease-out';
+                    ringProgress.style.strokeDashoffset = c - (pct / 100) * c;
+                }, 300);
+            });
+        }
         /* Animation du nombre (comptage de 0 à la valeur cible) */
         if (ringPct) {
             const target = parseFloat(ringPct.dataset.value) || 0;
-            let cur = 0;
-            const step = target / 60;
-            const timer = setInterval(() => {
-                cur += step;
-                if (cur >= target) { cur = target; clearInterval(timer); }
-                ringPct.textContent = cur.toFixed(1);
-            }, 25);
+            if (prefersReducedMotion) {
+                ringPct.textContent = target.toFixed(1);
+            } else {
+                let cur = 0;
+                const step = target / 60;
+                const timer = setInterval(() => {
+                    cur += step;
+                    if (cur >= target) { cur = target; clearInterval(timer); }
+                    ringPct.textContent = cur.toFixed(1);
+                }, 25);
+            }
         }
     }
 
@@ -40,7 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.shap-fill').forEach(bar => {
         const w = bar.dataset.width;
         if (w) {
-            setTimeout(() => { bar.style.width = w + '%'; }, 500);
+            if (prefersReducedMotion) bar.style.width = w + '%';
+            else setTimeout(() => { bar.style.width = w + '%'; }, 500);
         }
     });
 

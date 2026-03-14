@@ -15,19 +15,22 @@
 #}
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Titre de la page — surchargeable par chaque page enfant via le block title -->
-    <title>{% block title %}PediAppend — AI-Powered Pediatric Appendicitis Diagnosis{% endblock %}</title>
-    <meta name="description" content="Système d'aide à la décision clinique pour le diagnostic pédiatrique de l'appendicite par apprentissage automatique.">
-    <!-- Feuille de style principale de l'application -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <!-- ═══ Navbar — Barre de navigation principale ═══ -->
-    <!-- Contient le logo, les liens de navigation et le menu utilisateur (connecté/déconnecté) -->
-    <header class="navbar" id="navbar">
+	<head>
+	    <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <meta name="theme-color" content="#06b6d4">
+	    <!-- Titre de la page — surchargeable par chaque page enfant via le block title -->
+	    <title>{% block title %}PediAppend — AI-Powered Pediatric Appendicitis Diagnosis{% endblock %}</title>
+	    <meta name="description" content="Système d'aide à la décision clinique pour le diagnostic pédiatrique de l'appendicite par apprentissage automatique.">
+	    <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">
+	    <!-- Feuille de style principale de l'application -->
+	    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	</head>
+	<body>
+	    <a class="skip-link" href="#mainContent">Aller au contenu</a>
+	    <!-- ═══ Navbar — Barre de navigation principale ═══ -->
+	    <!-- Contient le logo, les liens de navigation et le menu utilisateur (connecté/déconnecté) -->
+	    <header class="navbar" id="navbar">
         <div class="navbar-inner">
             <!-- Logo et nom de l'application (lien vers la page d'accueil) -->
             <a href="{{ url_for('home') }}" class="logo">
@@ -92,22 +95,22 @@
 
     <!-- ═══ Flash Messages — Messages temporaires Flask ═══ -->
     <!-- Affiche les notifications (succès, erreur, info) définies via flash() dans les routes Flask -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <div class="flash-messages">
-        {% for category, message in messages %}
-        <!-- Chaque message a une classe CSS correspondant à sa catégorie (success, error, info, etc.) -->
-        <div class="flash-msg {{ category }}">{{ message }}</div>
-        {% endfor %}
-    </div>
-    {% endif %}
-    {% endwith %}
+	    {% with messages = get_flashed_messages(with_categories=true) %}
+	    {% if messages %}
+	    <div class="flash-messages" role="status" aria-live="polite" aria-atomic="true">
+	        {% for category, message in messages %}
+	        <!-- Chaque message a une classe CSS correspondant à sa catégorie (success, error, info, etc.) -->
+	        <div class="flash-msg {{ category }}">{{ message }}</div>
+	        {% endfor %}
+	    </div>
+	    {% endif %}
+	    {% endwith %}
 
-    <!-- ═══ Main Content — Contenu principal de la page ═══ -->
-    <!-- Chaque page enfant injecte son contenu ici via le block content -->
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+	    <!-- ═══ Main Content — Contenu principal de la page ═══ -->
+	    <!-- Chaque page enfant injecte son contenu ici via le block content -->
+	    <main id="mainContent" tabindex="-1">
+	        {% block content %}{% endblock %}
+	    </main>
 
     <!-- ═══ Footer — Pied de page ═══ -->
     <!-- Surchargeable via le block footer (ex: index.html le masque) -->
