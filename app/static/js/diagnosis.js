@@ -6,6 +6,7 @@
    et toggle échographie.
    ═══════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     /* ═══ FORMULAIRE MULTI-ÉTAPES ═══ */
     const steps = document.querySelectorAll('.form-step');
@@ -19,10 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (prevBtn) prevBtn.style.visibility = n === 0 ? 'hidden' : 'visible';
         if (nextBtn) {
             if (n === steps.length - 1) {
-                nextBtn.innerHTML = '&#129657; Analyze &rarr;';
+                nextBtn.innerHTML = '&#129657; Analyser &rarr;';
                 nextBtn.classList.add('submit-mode');
             } else {
-                nextBtn.innerHTML = 'Next &rarr;';
+                nextBtn.innerHTML = 'Suivant &rarr;';
                 nextBtn.classList.remove('submit-mode');
             }
         }
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         /* Labels d'étape */
         document.querySelectorAll('.step-label-text').forEach((l, i) => {
-            l.style.color = i <= n ? 'var(--slate-800)' : 'var(--slate-400)';
+            l.classList.toggle('is-active', i <= n);
         });
         /* Barre de progression */
         const fill = document.querySelector('.step-progress-fill');
@@ -52,10 +53,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!step) return true;
         const required = step.querySelectorAll('[required]');
         let ok = true;
+        let firstInvalid = null;
         required.forEach(el => {
             const g = el.closest('.form-group') || el.closest('.bmi-card') || el.parentElement;
-            if (!el.value) { g.classList.add('has-error'); ok = false; }
-            else g.classList.remove('has-error');
+            if (!el.value) {
+                g.classList.add('has-error');
+                ok = false;
+                if (!firstInvalid && typeof el.focus === 'function' && el.type !== 'hidden') firstInvalid = el;
+            } else {
+                g.classList.remove('has-error');
+            }
         });
         /* Validation spéciale pour le champ Sexe (input hidden) */
         const sexInput = step.querySelector('#Sex');
@@ -63,6 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const g = sexInput.closest('.form-group') || sexInput.parentElement;
             g.classList.add('has-error');
             ok = false;
+            if (!firstInvalid) firstInvalid = step.querySelector('.sex-btn') || sexInput;
+        }
+        if (!ok && firstInvalid && typeof firstInvalid.scrollIntoView === 'function') {
+            firstInvalid.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'center' });
+            if (typeof firstInvalid.focus === 'function') firstInvalid.focus({ preventScroll: true });
         }
         return ok;
     }
@@ -76,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 currentStep++;
                 showStep(currentStep);
-                window.scrollTo({ top: document.querySelector('.form-section').offsetTop - 100, behavior: 'smooth' });
+                window.scrollTo({ top: document.querySelector('.form-section').offsetTop - 100, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
             }
         });
     }

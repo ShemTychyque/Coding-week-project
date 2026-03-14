@@ -26,13 +26,21 @@ document.addEventListener('DOMContentLoaded', () => {
     window.filterRecords = function() {
         const q = (document.getElementById('searchInput')?.value || '').toLowerCase();
         const f = document.getElementById('filterResult')?.value || 'all';
+        let anyVisible = false;
         document.querySelectorAll('#historyTable tbody tr').forEach(tr => {
             const text = tr.textContent.toLowerCase();
             const result = tr.dataset.result;
             const matchText = !q || text.includes(q);
             const matchFilter = f === 'all' || result === f;
-            tr.style.display = matchText && matchFilter ? '' : 'none';
+            const show = matchText && matchFilter;
+            tr.style.display = show ? '' : 'none';
+            if (show) anyVisible = true;
         });
+        const empty = document.getElementById('filterEmpty');
+        if (empty) empty.hidden = anyVisible;
     };
+
+    // Initialize empty-state for filters on first render.
+    if (document.getElementById('historyTable')) window.filterRecords();
 
 });

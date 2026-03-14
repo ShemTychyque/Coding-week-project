@@ -58,6 +58,27 @@ img { max-width: 100%; display: block; }
 button { cursor: pointer; font-family: inherit; }
 input, select, textarea { font-family: inherit; }
 
+/* ── Accessibilité ──────────────────────────────────────────────── */
+:focus-visible {
+  outline: 3px solid var(--cyan-500);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0.75rem;
+  z-index: 9999;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-xl);
+  background: #ffffff;
+  border: 2px solid var(--slate-200);
+  box-shadow: 0 10px 30px rgba(15,23,42,0.12);
+}
+.skip-link:focus-visible {
+  left: 0.75rem;
+}
+
 /* ── Utility Classes ────────────────────────────────────────────── */
 .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
 .container-sm { max-width: 1024px; margin: 0 auto; padding: 0 1.5rem; }
@@ -124,6 +145,16 @@ input, select, textarea { font-family: inherit; }
 .animate-in.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ── Navbar ─────────────────────────────────────────────────────── */
@@ -697,6 +728,9 @@ input, select, textarea { font-family: inherit; }
   animation: pulse-dot 2s ease-in-out infinite;
 }
 .step-info { display: none; }
+.step-label-text { font-weight: 600; color: var(--slate-400); }
+.step-label-text.is-active { color: var(--slate-800); }
+.step-label-sub { font-size: 0.75rem; color: var(--slate-400); }
 .step-connector {
   flex: 1; height: 4px; margin: 0 1rem; border-radius: 9999px;
   background: var(--slate-100); overflow: hidden;
@@ -1164,6 +1198,7 @@ input, select, textarea { font-family: inherit; }
   padding: 0.45rem 0.75rem;
   border-radius: var(--radius);
   transition: background 0.2s;
+  cursor: help;
 }
 .shap-row:hover { background: var(--slate-50); }
 .shap-feature {
@@ -1346,6 +1381,17 @@ input, select, textarea { font-family: inherit; }
   outline: none; cursor: pointer; transition: all 0.3s;
 }
 .filter-select:focus { border-color: var(--cyan-400); }
+
+.filter-empty {
+  max-width: 1100px;
+  margin: 0 auto 1rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-2xl);
+  background: rgba(6,182,212,0.06);
+  border: 1px solid rgba(6,182,212,0.18);
+  color: var(--slate-600);
+  font-weight: 600;
+}
 
 /* History table */
 .history-table-wrap {
