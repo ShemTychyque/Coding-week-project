@@ -26,10 +26,11 @@
 	    <!-- Feuille de style principale de l'application -->
 	    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 	</head>
-<body>
-    <!-- ═══ Navbar — Barre de navigation principale ═══ -->
-    <!-- Contient le logo, les liens de navigation et le menu utilisateur (connecté/déconnecté) -->
-    <header class="navbar" id="navbar">
+	<body>
+	    <a class="skip-link" href="#mainContent">Aller au contenu</a>
+	    <!-- ═══ Navbar — Barre de navigation principale ═══ -->
+	    <!-- Contient le logo, les liens de navigation et le menu utilisateur (connecté/déconnecté) -->
+	    <header class="navbar" id="navbar">
         <div class="navbar-inner">
             <!-- Logo et nom de l'application (lien vers la page d'accueil) -->
             <a href="{{ url_for('home') }}" class="logo">
@@ -105,11 +106,11 @@
     {% endif %}
     {% endwith %}
 
-    <!-- ═══ Main Content — Contenu principal de la page ═══ -->
-    <!-- Chaque page enfant injecte son contenu ici via le block content -->
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+	    <!-- ═══ Main Content — Contenu principal de la page ═══ -->
+	    <!-- Chaque page enfant injecte son contenu ici via le block content -->
+	    <main id="mainContent" tabindex="-1">
+	        {% block content %}{% endblock %}
+	    </main>
 
     <!-- ═══ Footer — Pied de page ═══ -->
     <!-- Surchargeable via le block footer (ex: index.html le masque) -->

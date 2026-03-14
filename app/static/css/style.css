@@ -58,6 +58,27 @@ img { max-width: 100%; display: block; }
 button { cursor: pointer; font-family: inherit; }
 input, select, textarea { font-family: inherit; }
 
+/* ── Accessibilité ──────────────────────────────────────────────── */
+:focus-visible {
+  outline: 3px solid var(--cyan-500);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0.75rem;
+  z-index: 9999;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-xl);
+  background: #ffffff;
+  border: 2px solid var(--slate-200);
+  box-shadow: 0 10px 30px rgba(15,23,42,0.12);
+}
+.skip-link:focus-visible {
+  left: 0.75rem;
+}
+
 /* ── Utility Classes ────────────────────────────────────────────── */
 .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
 .container-sm { max-width: 1024px; margin: 0 auto; padding: 0 1.5rem; }
