@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         /* Labels d'étape */
         document.querySelectorAll('.step-label-text').forEach((l, i) => {
-            l.style.color = i <= n ? 'var(--slate-800)' : 'var(--slate-400)';
+            l.classList.toggle('is-active', i <= n);
         });
         /* Barre de progression */
         const fill = document.querySelector('.step-progress-fill');

@@ -728,6 +728,9 @@ input, select, textarea { font-family: inherit; }
   animation: pulse-dot 2s ease-in-out infinite;
 }
 .step-info { display: none; }
+.step-label-text { font-weight: 600; color: var(--slate-400); }
+.step-label-text.is-active { color: var(--slate-800); }
+.step-label-sub { font-size: 0.75rem; color: var(--slate-400); }
 .step-connector {
   flex: 1; height: 4px; margin: 0 1rem; border-radius: 9999px;
   background: var(--slate-100); overflow: hidden;
